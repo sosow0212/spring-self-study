@@ -1,7 +1,8 @@
 package com.example.study.dao;
 
-import com.example.study.dto.BookResponseDto;
-import com.example.study.dto.CreateBookRequestDto;
+import com.example.study.domain.Book;
+import com.example.study.dto.board.BookResponseDto;
+import com.example.study.dto.board.CreateBookRequestDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,17 +43,21 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Optional<BookResponseDto> findById(final Long id) {
+    public Optional<Book> findById(final Long id) {
         String sql = "SELECT title, content FROM book WHERE id = ?";
         Object[] args = new Object[]{id};
 
-        List<BookResponseDto> result = jdbcTemplate.query(sql, args, (res, rowNum) -> {
+        List<Book> books = jdbcTemplate.query(sql, args, (res, rowNum) -> {
             String title = res.getString("title");
             String content = res.getString("content");
-            return BookResponseDto.from(title, content);
+            return Book.from(title, content);
         });
 
-        return Optional.of(result.get(0));
+        if (books.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(books.get(0));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.example.study.domain;
 
-import com.example.study.dto.CreateBookRequestDto;
+import com.example.study.dto.board.CreateBookRequestDto;
 
 public class Book {
 
@@ -14,6 +14,10 @@ public class Book {
 
     public static Book from(final CreateBookRequestDto req) {
         return new Book(req.getTitle(), req.getContent());
+    }
+
+    public static Book from(final String title, final String content) {
+        return new Book(title, content);
     }
 
     public String getTitle() {

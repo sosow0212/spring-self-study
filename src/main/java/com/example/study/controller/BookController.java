@@ -1,7 +1,7 @@
 package com.example.study.controller;
 
-import com.example.study.dto.BookResponseDto;
-import com.example.study.dto.CreateBookRequestDto;
+import com.example.study.dto.board.BookResponseDto;
+import com.example.study.dto.board.CreateBookRequestDto;
 import com.example.study.service.BookService;
 import java.util.List;
 import org.springframework.http.HttpStatus;

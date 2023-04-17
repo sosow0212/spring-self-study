@@ -3,8 +3,9 @@ package com.example.study.service;
 import com.example.study.dao.BookDao;
 import com.example.study.dao.BookDaoImpl;
 import com.example.study.domain.Book;
-import com.example.study.dto.BookResponseDto;
-import com.example.study.dto.CreateBookRequestDto;
+import com.example.study.dto.board.BookResponseDto;
+import com.example.study.dto.board.CreateBookRequestDto;
+import com.example.study.exception.BookNotfoundException;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,10 @@ public class BookService {
     }
 
     public BookResponseDto findById(final Long id) {
-        return bookDao.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("찾을 수 없다."));
+        Book book = bookDao.findById(id)
+                .orElseThrow(BookNotfoundException::new);
+
+        return BookResponseDto.from(book);
     }
 
     public void deleteById(final Long id) {

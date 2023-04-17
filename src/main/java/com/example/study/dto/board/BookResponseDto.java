@@ -1,4 +1,4 @@
-package com.example.study.dto;
+package com.example.study.dto.board;
 
 import com.example.study.domain.Book;
 

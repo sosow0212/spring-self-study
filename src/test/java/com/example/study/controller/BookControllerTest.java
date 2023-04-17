@@ -6,8 +6,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.study.dto.BookResponseDto;
-import com.example.study.dto.CreateBookRequestDto;
+import com.example.study.dto.board.BookResponseDto;
+import com.example.study.dto.board.CreateBookRequestDto;
 import com.example.study.service.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;

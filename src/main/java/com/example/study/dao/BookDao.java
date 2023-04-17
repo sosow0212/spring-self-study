@@ -1,7 +1,8 @@
 package com.example.study.dao;
 
-import com.example.study.dto.BookResponseDto;
-import com.example.study.dto.CreateBookRequestDto;
+import com.example.study.domain.Book;
+import com.example.study.dto.board.BookResponseDto;
+import com.example.study.dto.board.CreateBookRequestDto;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,7 @@ public interface BookDao {
 
     List<BookResponseDto> findAll();
 
-    Optional<BookResponseDto> findById(final Long id);
+    Optional<Book> findById(final Long id);
 
     void deleteById(final Long id);
 }
