@@ -2,8 +2,12 @@ package com.example.study.dto;
 
 public class CreateBookRequestDto {
 
-    private final String title;
-    private final String content;
+    private String title;
+    private String content;
+
+    private CreateBookRequestDto() {
+
+    }
 
     public CreateBookRequestDto(final String title, final String content) {
         this.title = title;
