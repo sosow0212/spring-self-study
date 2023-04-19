@@ -1,18 +1,10 @@
 package com.example.study.controller;
 
-import com.example.study.dto.board.BookResponseDto;
 import com.example.study.dto.board.CreateBookRequestDto;
+import com.example.study.dto.response.Response;
 import com.example.study.service.BookService;
-import java.util.List;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/books")
 @RestController
@@ -25,23 +17,27 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<BookResponseDto> createBook(@RequestBody CreateBookRequestDto req) {
-        return new ResponseEntity<>(bookService.createBook(req), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Response createBook(@RequestBody CreateBookRequestDto req) {
+        return Response.success(bookService.createBook(req));
     }
 
     @GetMapping
-    public ResponseEntity<List<BookResponseDto>> findAll() {
-        return new ResponseEntity<>(bookService.findAll(), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public Response findAll() {
+        return Response.success(bookService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookResponseDto> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(bookService.findById(id), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public Response findById(@PathVariable Long id) {
+        return Response.success(bookService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public Response deleteById(@PathVariable Long id) {
         bookService.deleteById(id);
-        return new ResponseEntity<>("삭제 성공", HttpStatus.OK);
+        return Response.success("삭제 성공");
     }
 }
