@@ -7,6 +7,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
 import com.example.study.dao.BookDaoImpl;
+import com.example.study.domain.Book;
 import com.example.study.dto.board.BookResponseDto;
 import com.example.study.dto.board.CreateBookRequestDto;
 import java.util.List;
@@ -63,14 +64,14 @@ public class BookServiceTest {
     void returns_book_by_id() {
         // given
         Long id = 1L;
-        BookResponseDto expectedResult = BookResponseDto.from("title", "content");
-        given(bookDaoImpl.findById(id)).willReturn(Optional.of(expectedResult));
+        Book book = Book.from("title", "content");
+        given(bookDaoImpl.findById(id)).willReturn(Optional.of(book));
 
         // when
         BookResponseDto result = bookService.findById(id);
 
         // then
-        assertThat(result.getTitle()).isEqualTo(expectedResult.getTitle());
+        assertThat(result.getTitle()).isEqualTo(book.getTitle());
     }
 
     @Test
