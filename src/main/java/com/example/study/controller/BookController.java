@@ -1,8 +1,12 @@
 package com.example.study.controller;
 
 import com.example.study.dto.board.CreateBookRequestDto;
+import com.example.study.dto.member.MemberLoginRequestDto;
 import com.example.study.dto.response.Response;
 import com.example.study.service.BookService;
+import com.example.study.service.member.MemberService;
+import com.example.study.util.AuthorizationExtractor;
+import com.example.study.util.BasicAuthorizationExtractor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +16,13 @@ public class BookController {
 
     private final BookService bookService;
 
-    public BookController(final BookService bookService) {
+    private final MemberService memberService;
+    private final AuthorizationExtractor<MemberLoginRequestDto> authorizationExtractor;
+
+    public BookController(final BookService bookService, final MemberService memberService) {
         this.bookService = bookService;
+        this.memberService = memberService;
+        this.authorizationExtractor = new BasicAuthorizationExtractor();
     }
 
     @PostMapping
@@ -24,7 +33,13 @@ public class BookController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Response findAll() {
+    public Response findAll(@RequestHeader("Authorization") final String authHeaderValue) {
+
+        // 1. 헤더에서 로그인 정보를 추출한 후에 로그인 정보가 DB에 있는지 확인한다. (없다면 예외!)
+        MemberLoginRequestDto memberLoginRequestDto = authorizationExtractor.extractHeader(authHeaderValue);
+        memberService.handleLogin(memberLoginRequestDto);
+
+        // 2. 로그인 정보가 유효하다면 로직을 실행시킨다.
         return Response.success(bookService.findAll());
     }
 
