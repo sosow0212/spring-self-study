@@ -28,7 +28,7 @@ public class BookController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Response findAll(@LoginBasic Member member) {
-        System.out.println(member.getEmail() + " 인증 성공~");
+        System.out.println(member.getEmail() + " 인증 성공!");
         return Response.success(bookService.findAll());
     }
 
