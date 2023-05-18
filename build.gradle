@@ -17,6 +17,12 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     runtimeOnly 'com.h2database:h2'
+
+    // aop
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    // slf4j
+    implementation 'org.slf4j:slf4j-api:1.7.31'
 }
 
 tasks.named('test') {
