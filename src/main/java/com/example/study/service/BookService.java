@@ -1,5 +1,6 @@
 package com.example.study.service;
 
+import com.example.study.aop.timer.CheckTime;
 import com.example.study.dao.BookDao;
 import com.example.study.dao.BookDaoImpl;
 import com.example.study.domain.Book;
@@ -19,6 +20,7 @@ public class BookService {
         this.bookDao = bookDaoImpl;
     }
 
+    @CheckTime // 시간 체킹 AOP
     @Transactional
     public BookResponseDto createBook(final CreateBookRequestDto req) {
         Book book = Book.from(req);
@@ -26,11 +28,13 @@ public class BookService {
         return BookResponseDto.from(book);
     }
 
+    @CheckTime
     @Transactional(readOnly = true)
     public List<BookResponseDto> findAll() {
         return bookDao.findAll();
     }
 
+    @CheckTime
     @Transactional(readOnly = true)
     public BookResponseDto findById(final Long id) {
         Book book = bookDao.findById(id)
@@ -39,6 +43,7 @@ public class BookService {
         return BookResponseDto.from(book);
     }
 
+    @CheckTime
     @Transactional
     public void deleteById(final Long id) {
         bookDao.deleteById(id);
