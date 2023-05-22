@@ -27,7 +27,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(final InterceptorRegistry registry) {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1)
-                .addPathPatterns("/**");
+                .excludePathPatterns("/docs/index.html") // Rest Docs 열어주기
+                .addPathPatterns("/books/**");
     }
 
     // 필터 등록
