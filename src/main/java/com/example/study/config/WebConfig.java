@@ -1,7 +1,6 @@
 package com.example.study.config;
 
 import com.example.study.config.interceptor.LoginCheckInterceptor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -28,7 +27,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(final InterceptorRegistry registry) {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1)
-                .addPathPatterns("/**");
+                .excludePathPatterns("/docs/index.html") // Rest Docs 열어주기
+                .addPathPatterns("/books/**");
     }
 
     // 필터 등록
