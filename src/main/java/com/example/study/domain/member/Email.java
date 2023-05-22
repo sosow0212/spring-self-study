@@ -19,7 +19,7 @@ public class Email {
         }
 
         if (!email.matches(EMAIL_REGEX)) {
-            throw new IllegalArgumentException("패스워드 양식 틀림");
+            throw new IllegalArgumentException("이메일 양식 틀림");
         }
     }
 
